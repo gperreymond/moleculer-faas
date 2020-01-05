@@ -1,9 +1,9 @@
 {
   "name": "mfaas-cli",
   "version": "1.0.0",
-  "description": "CLI for moleculer-faas",
-  "bin" : {
-    "mfaas-cli" : "./cmd.js"
+  "description": "Manage your Moleculer Faas functions from the command line",
+  "bin": {
+    "mfaas-cli": "./cmd.js"
   },
   "contributors": [
     "Gilles Perreymond <gperreymond@gmail.com>"
@@ -12,6 +12,8 @@
   "dependencies": {
     "chalk": "3.0.0",
     "commander": "4.0.1",
+    "exec-sh": "0.3.4",
+    "figlet": "1.2.4",
     "moleculer": "0.14.0-beta6"
   },
   "devDependencies": {

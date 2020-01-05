@@ -1,6 +1,10 @@
 module.exports = {
   name: 'Commander',
   actions: {
-    VersionQuery: require('./actions/VersionQuery')
+    Help: require('./actions/Help'),
+    Version: require('./actions/Version')
+  },
+  methods: {
+    WriteLogo: require('./methods/WriteLogo')
   }
 }
