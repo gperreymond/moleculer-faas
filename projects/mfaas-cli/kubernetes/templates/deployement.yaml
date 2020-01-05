@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.app.name }}
@@ -7,9 +7,10 @@ metadata:
     app: "{{ .Values.app.name }}"
     namespace: "{{ .Release.Namespace }}"
     revision: "{{ .Release.Revision }}"
-    time: "{{ .Release.Time.Seconds }}"
 spec:
-  replicas: "{{ .Values.replicas }}"
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -24,11 +25,6 @@ spec:
       labels:
         app: "{{ .Values.app.name }}"
         namespace: "{{ .Release.Namespace }}"
-      annotations:
-        # This is done to force pod creation after each helm upgrade command.
-        # As this value will change, we will then force the re deploy to happen, even if the docker image hasn't change.
-        # The use case here is when Moleculer's CI will be trigger, it will then re deploy each microservices w/o changing its docker image
-        checksum/config: {{ print $.Release.Time.Seconds | sha256sum }}
     spec:
       affinity:
         podAntiAffinity:
@@ -51,6 +47,12 @@ spec:
         securityContext:
           privileged: true
         imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            port: 3000
+            path: /hc
+          initialDelaySeconds: 3
+          periodSeconds: 3
         readinessProbe:
           httpGet:
             port: 3000
@@ -61,14 +63,14 @@ spec:
           - containerPort: 3000
         env:
         - name: NODE_ENV
-          value: "{{ .Values.env.env }}"
+          value: "{{ .Values.env }}"
         - name: APP_BROKER_METRICS
           value: "true"
         - name: APP_PORT
           value: "3000"
         - name: APP_MEMCACHED_HOST
-          value: memcached-memcached.default.svc.cluster.local
+          value: memcached.moleculerfaas.svc.cluster.local
         - name: APP_NATS_HOST
-          value: nats-nats-client.default.svc.cluster.local
+          value: nats-client.moleculerfaas.svc.cluster.local
         - name: APP_RABBITMQ_HOST
-          value: rabbitmq.rabbitmq.svc.cluster.local
+          value: rabbitmq.moleculerfaas.svc.cluster.local

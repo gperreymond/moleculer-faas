@@ -4,7 +4,7 @@ const figlet = require('figlet')
 const { description } = require('../../package.json')
 
 module.exports = async function () {
-  console.log(chalk`{blue ${figlet.textSync('Moleculer Faas', {
+  console.log(chalk`{blue ${figlet.textSync('MoleculerFaas', {
     font: 'Standard',
     horizontalLayout: 'default',
     verticalLayout: 'default'

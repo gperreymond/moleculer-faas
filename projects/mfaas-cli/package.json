@@ -1,7 +1,7 @@
 {
   "name": "mfaas-cli",
   "version": "1.0.0",
-  "description": "Manage your Moleculer Faas functions from the command line",
+  "description": "Manage your MoleculerFaas functions from the command line",
   "bin": {
     "mfaas-cli": "./cmd.js"
   },
