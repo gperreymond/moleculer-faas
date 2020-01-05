@@ -1,0 +1,20 @@
+{
+  "name": "mfaas-cli",
+  "version": "1.0.0",
+  "description": "CLI for moleculer-faas",
+  "bin" : {
+    "mfaas-cli" : "./cmd.js"
+  },
+  "contributors": [
+    "Gilles Perreymond <gperreymond@gmail.com>"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "chalk": "3.0.0",
+    "commander": "4.0.1",
+    "moleculer": "0.14.0-beta6"
+  },
+  "devDependencies": {
+    "standard": "14.3.1"
+  }
+}
