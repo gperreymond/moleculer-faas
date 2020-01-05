@@ -1,0 +1,74 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: "{{ .Values.app.name }}"
+    namespace: "{{ .Release.Namespace }}"
+    revision: "{{ .Release.Revision }}"
+    time: "{{ .Release.Time.Seconds }}"
+spec:
+  replicas: "{{ .Values.replicas }}"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  minReadySeconds: 3
+  # 1 because revision are handled by Helm so we will not use directly Kubernetes to rollback
+  # we could have set this field to 0 but at least we have another way to rollback if needed
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.app.name }}"
+        namespace: "{{ .Release.Namespace }}"
+      annotations:
+        # This is done to force pod creation after each helm upgrade command.
+        # As this value will change, we will then force the re deploy to happen, even if the docker image hasn't change.
+        # The use case here is when Moleculer's CI will be trigger, it will then re deploy each microservices w/o changing its docker image
+        checksum/config: {{ print $.Release.Time.Seconds | sha256sum }}
+    spec:
+      affinity:
+        podAntiAffinity:
+          # Preferred is better than required: if the orchestrator want to autoscale more pods than
+          # the number of nodes, you will be locked if you are using 'required' field on scheduling
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - {{ .Values.app.name }}
+              topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: "docker-{{ .Values.app.name }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        securityContext:
+          privileged: true
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /hc
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        ports:
+          - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "{{ .Values.env.env }}"
+        - name: APP_BROKER_METRICS
+          value: "true"
+        - name: APP_PORT
+          value: "3000"
+        - name: APP_MEMCACHED_HOST
+          value: memcached-memcached.default.svc.cluster.local
+        - name: APP_NATS_HOST
+          value: nats-nats-client.default.svc.cluster.local
+        - name: APP_RABBITMQ_HOST
+          value: rabbitmq.rabbitmq.svc.cluster.local

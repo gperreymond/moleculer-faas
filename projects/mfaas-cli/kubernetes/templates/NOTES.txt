@@ -1,0 +1,4 @@
+/!\ The new {{ .Values.app.name }} app is now deployed /!\
+
+Docker repository is: {{.Values.image.repository}}.
+Commit and docker image tag is: {{.Values.image.tag}}.

@@ -1,0 +1,7 @@
+apiVersion: v1
+name: moleculer-faas
+version: 1.0.0
+description: Helm chart for Moleculer Faas
+keywords:
+  - moleculer
+  - faas
