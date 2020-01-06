@@ -1,0 +1,11 @@
+rabbitmq:
+  username: infra
+  password: infra
+  erlangCookie: infra
+
+ingress:
+  enabled: true
+  hostName: rabbitmq.docker.localhost
+
+metrics:
+  enabled: true

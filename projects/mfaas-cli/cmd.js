@@ -35,6 +35,23 @@ program
   })
 
 program
+  .command('install')
+  .description('Install all MoleculerFaas infrastructure and the gateway ui')
+  .option('-r, --rabbitmq <RABBITMQ_VALUES>', 'The values filepath to initialize rabbitmq', 'moleculerfaas/rabbitmq/values.yaml')
+  .option('-n, --nats <NATS_VALUES>', 'The values filepath to initialize nats', 'moleculerfaas/nats/values.yaml')
+  .option('-m, --memcached <MEMCACHED_VALUES>', 'The values filepath to initialize memcached', 'moleculerfaas/memcached/values.yaml')
+  .action(async (cmd) => {
+    const { rabbitmq: RABBITMQ_VALUES, nats: NATS_VALUES, memcached: MEMCACHED_VALUES } = cmd
+    const broker = new ServiceBroker({
+      metrics: false,
+      logger: false
+    })
+    await broker.loadServices()
+    await broker.start()
+    await broker.call('Commander.Install', { RABBITMQ_VALUES, NATS_VALUES, MEMCACHED_VALUES })
+  })
+
+program
   .command('auth')
   .description('Obtain a token for your MoleculerFaas gateway')
   .action(async () => {

@@ -4,8 +4,8 @@ const path = require('path')
 module.exports = {
   handler: async function (ctx) {
     const { ENV, IMAGE_REPOSITORY, IMAGE_TAG, INGRESS_HOST, APP_NAME } = ctx.params
-    const KUBERNETES_REPOSITORY = path.resolve(__dirname, '../../kubernetes')
     const NAMESPACE = 'moleculerfaas-fn'
+    const KUBERNETES_REPOSITORY = path.resolve(__dirname, '../..', NAMESPACE)
     await this.WriteLogo()
     await sh(`kubectl create namespace ${NAMESPACE}`, true)
     await sh(`
