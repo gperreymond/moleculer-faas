@@ -1,0 +1,15 @@
+{
+  "name": "mfaas-templates-nodejs",
+  "version": "1.0.0",
+  "description": "Template nodejs for MoleculerFaas",
+  "contributors": [
+    "Gilles Perreymond <gperreymond@gmail.com>"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "moleculer": "0.14.0-beta6"
+  },
+  "devDependencies": {
+    "standard": "14.3.1"
+  }
+}
