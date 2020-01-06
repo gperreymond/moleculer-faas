@@ -6,11 +6,13 @@ metadata:
   labels:
     app: "{{ .Values.app.name }}"
     namespace: "{{ .Release.Namespace }}"
+    env: "{{ .Values.env }}"
     revision: "{{ .Release.Revision }}"
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
+      app: "{{ .Values.app.name }}"
   strategy:
     type: RollingUpdate
     rollingUpdate:
