@@ -1,3 +1,7 @@
+[![Moleculer logo](./banner-moleculer.png)](https://moleculer.services/)
+
+# Infrastructure
+
 ## Nats
 
 NATS is an open-source, cloud-native messaging system. It provides a lightweight server that is written in the Go programming language.
