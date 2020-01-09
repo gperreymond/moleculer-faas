@@ -26,5 +26,8 @@ module.exports = {
       --namespace ${NAMESPACE} \
       --install
     `)
+    // ingress nginx
+    await sh(`kubectl apply -f ${path.resolve(__dirname, '../../moleculerfaas/ingress-nginx/nginx.yaml')}`)
+    await sh(`kubectl apply -f ${path.resolve(__dirname, '../../moleculerfaas/ingress-nginx/mapping-ports.yaml')}`)
   }
 }

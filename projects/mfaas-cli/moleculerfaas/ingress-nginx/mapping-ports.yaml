@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  5672: "moleculerfaas/rabbitmq:5672"
+  4222: "moleculerfaas/nats-client:4222"

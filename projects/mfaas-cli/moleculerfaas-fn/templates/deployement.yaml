@@ -72,7 +72,7 @@ spec:
           value: "3000"
         - name: APP_MEMCACHED_HOST
           value: memcached.moleculerfaas.svc.cluster.local
-        - name: APP_NATS_HOST
+        - name: APP_NATS_HOSTNAME
           value: nats-client.moleculerfaas.svc.cluster.local
         - name: APP_RABBITMQ_HOST
           value: rabbitmq.moleculerfaas.svc.cluster.local
