@@ -1,11 +1,15 @@
 const { ServiceBroker } = require('moleculer')
 
 const Configuration = require('./Configuration')
+const HeathCheckMiddleware = require('../middlewares/health-check.middleware')
 
 class Moleculer {
   constructor () {
     this._instance = new ServiceBroker({
       ...Configuration.moleculer,
+      middlewares: [
+        HeathCheckMiddleware()
+      ],
       async started (broker) {
         broker.logger.warn('Broker started')
       },
