@@ -2,9 +2,16 @@ version: 1.0
 
 functions:
   dummy-hello-world:
-    lang: dockerfile
-    image: gperreymond/dummy-hello-world:latest
+    lang: nodejs
     service: services/dummy.service.js
+    action: Dummy.HelloWorld
     alias:
       method: POST
       path: dummy/hello-world
+  dummy-not-hello-world:
+    lang: nodejs
+    service: services/dummy.service.js
+    action: Dummy.NotHelloWorld
+    alias:
+      method: GET
+      path: dummy/not-hello-world
