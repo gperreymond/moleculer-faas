@@ -15,7 +15,10 @@
     "commander": "4.1.0",
     "exec-sh": "0.3.4",
     "figlet": "1.2.4",
-    "moleculer": "0.14.0-beta6"
+    "fs-extra": "8.1.0",
+    "moleculer": "0.14.0-beta6",
+    "uuid": "3.3.3",
+    "yaml": "1.7.2"
   },
   "devDependencies": {
     "standard": "14.3.1"
