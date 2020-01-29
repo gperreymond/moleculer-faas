@@ -3,6 +3,9 @@ rabbitmq:
   password: infra
   erlangCookie: infra
 
+securityContext:
+  enabled: false
+  
 ingress:
   enabled: true
   hostName: rabbitmq.docker.localhost

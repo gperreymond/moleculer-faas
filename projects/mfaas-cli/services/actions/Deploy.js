@@ -35,7 +35,8 @@ module.exports = {
           var tmpdir = `/var/tmp/moleculerfaas-fn/${uuid.v4()}`
           await fse.ensureDir(tmpdir)
           await fse.ensureDir(`${tmpdir}/services`)
-          await fse.copy(servicePath, `${tmpdir}/services/moleculer.service.js`)
+          await fse.copy(`${root}/${f.service}`, `${tmpdir}/services`)
+          await fse.copy(servicePath, `${tmpdir}/services/moleculerfaas.service.js`)
           break
         default:
           throw new Error(`Lang ${f.lang} not exists`)

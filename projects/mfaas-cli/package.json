@@ -17,7 +17,7 @@
     "figlet": "1.2.4",
     "fs-extra": "8.1.0",
     "moleculer": "0.14.0-beta6",
-    "uuid": "3.3.3",
+    "uuid": "3.4.0",
     "yaml": "1.7.2"
   },
   "devDependencies": {

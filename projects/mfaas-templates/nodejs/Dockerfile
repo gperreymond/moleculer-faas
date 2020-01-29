@@ -15,3 +15,10 @@ RUN npm config set unsafe-perm true
 RUN yarn install --production && \
     yarn autoclean --init && \
     yarn autoclean --force
+
+# clean image
+RUN npm uninstall -g npm && \
+    rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
+
+# start application
+ENTRYPOINT ["./docker-entrypoint.sh"]
