@@ -7,7 +7,7 @@
   ],
   "license": "UNLICENSED",
   "dependencies": {
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "moleculer": "0.14.0-beta6",
     "nats": "1.4.0",
     "nconf": "0.10.0"
